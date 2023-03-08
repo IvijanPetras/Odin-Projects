@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="">
+    <input id="search" type="text">
+    <button id="btn">New GIF</button>
+    <div id="output"></div>
+    <script>
+        const API_KEY = "AYHTc53FehMdW1EuKW7U8XEYuxUW2n1O";
+        
+        const btn = document.querySelector('#btn');
+        
+
+        function getData(){
+            
+        }
+
+        
+
+        let getNewImage = () => {
+            const searchValue = document.querySelector('#input').value.trim();
+            fetch(url, { mode: 'cors' })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res.data)
+                    img.src = res.data.images.downsized.url
+                })
+                .catch(err => {
+                    console.log('error');
+                })
+            };
+           
+        btn.addEventListener('click', () => {
+            const searchValue = document.querySelector('#search').value.trim();
+            const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchValue}`;
+            fetch(url, { mode: 'cors' })
+                .then(res => res.json())
+                .then(content => {
+                    let img = document.createElement('img');
+                    console.log(content.data[0].images.downsized.url)
+                    img.src = content.data[0].images.downsized.url
+                    img.alt = content.data[0].title
+                    let output = document.querySelector('#output');
+                    output.appendChild(img);
+                })
+                .catch(err => {
+                    console.log('error');
+                })
+        });
+    </script>
+</body>
+
+</html>
