@@ -17,42 +17,38 @@
         const API_KEY = "AYHTc53FehMdW1EuKW7U8XEYuxUW2n1O";
         
         const btn = document.querySelector('#btn');
-        
-
-        function getData(){
-            
+        const output = document.querySelector('#output');
+    
+        function loading(){
+            output.innerHTML = "Loading..."
         }
 
-        
+        function hideLoading(){
+            output.innerHTML = "";
+        }
 
-        let getNewImage = () => {
-            const searchValue = document.querySelector('#input').value.trim();
-            fetch(url, { mode: 'cors' })
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res.data)
-                    img.src = res.data.images.downsized.url
-                })
-                .catch(err => {
-                    console.log('error');
-                })
-            };
-           
         btn.addEventListener('click', () => {
             const searchValue = document.querySelector('#search').value.trim();
-            const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchValue}`;
+            const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchValue}&limit=5`;
+            loading();
             fetch(url, { mode: 'cors' })
                 .then(res => res.json())
                 .then(content => {
+                    
+                    console.log(content.data)
+                    output.innerHTML = "";
+                    document.querySelector('#search').value = ""
+                    content.data.forEach(element => {
                     let img = document.createElement('img');
-                    console.log(content.data[0].images.downsized.url)
-                    img.src = content.data[0].images.downsized.url
-                    img.alt = content.data[0].title
-                    let output = document.querySelector('#output');
+                    img.src = element.images.downsized.url
+                    img.alt = element.title
+                    img.style.height = "300px";
+                    img.style.padding = "10px"
                     output.appendChild(img);
+                    });
                 })
                 .catch(err => {
-                    console.log('error');
+                    output.innerHTML = "Error, cant find keyword...";
                 })
         });
     </script>
