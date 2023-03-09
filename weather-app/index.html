@@ -6,50 +6,97 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .loadingFalse {
+            display: none;
+        }
+
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
 </head>
 
 <body>
     <img src="">
     <input id="search" type="text">
     <button id="btn">New GIF</button>
-    <div id="output"></div>
+    <div id="output">
+        <div class="loading loadingFalse">Loading...</div>
+    </div>
     <script>
         const API_KEY = "AYHTc53FehMdW1EuKW7U8XEYuxUW2n1O";
-        
         const btn = document.querySelector('#btn');
         const output = document.querySelector('#output');
-    
-        function loading(){
+
+        function loading() {
             output.innerHTML = "Loading..."
         }
 
-        function hideLoading(){
-            output.innerHTML = "";
+        async function getGifs() {
+            const searchValue = document.querySelector('#search').value.trim();
+            const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchValue}&limit=5`;
+            try {
+                const response = await fetch(url, { mode: 'cors' })
+                const gifs = await response.json()
+                document.querySelector('.loading').classList.remove('loadingFalse')
+                console.log(gifs.data)
+                gifs.data.forEach((data) => {
+                    let img = new Image(300, 300);
+                    img.onload = () => {
+                        console.log("image loaded")
+                    }
+                    img.src = data.images.downsized.url
+                    output.appendChild(img)
+                })
+
+            } catch (error) {
+                console.log(error)
+            } finally {
+                document.querySelector('.loading').classList.add('loadingFalse');
+            }
         }
 
         btn.addEventListener('click', () => {
-            const searchValue = document.querySelector('#search').value.trim();
-            const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchValue}&limit=5`;
-            loading();
-            fetch(url, { mode: 'cors' })
-                .then(res => res.json())
-                .then(content => {
-                    
-                    console.log(content.data)
-                    output.innerHTML = "";
-                    document.querySelector('#search').value = ""
-                    content.data.forEach(element => {
-                    let img = document.createElement('img');
-                    img.src = element.images.downsized.url
-                    img.alt = element.title
-                    img.style.height = "300px";
-                    img.style.padding = "10px"
-                    output.appendChild(img);
-                    });
-                })
-                .catch(err => {
-                    output.innerHTML = "Error, cant find keyword...";
-                })
+            getGifs();
+            // loading();
+            // fetch(url, { mode: 'cors' })
+            //     .then(res => res.json())
+            //     .then(content => {
+            //         output.innerHTML = "";
+            //         document.querySelector('#search').value = ""
+            //         content.data.forEach(element => {
+            //             let img = document.createElement('img');
+            //             img.src = element.images.downsized.url
+            //             img.alt = element.title
+            //             img.style.height = "300px";
+            //             img.style.padding = "10px"
+            //             output.appendChild(img);
+            //         });
+            //     })
+            //     .catch(err => {
+            //         output.innerHTML = "Error, cant find keyword...";
+            //     })
         });
     </script>
 </body>
