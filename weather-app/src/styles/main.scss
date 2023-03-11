@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: rgb(69, 70, 69);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid red;
+  height: 100vh;
+}
+
+.main-container {
+  border: 1px solid black;
+  border-radius: 3px;
+  height: 25%;
+  width: 25%;
+}
+
+.center-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
