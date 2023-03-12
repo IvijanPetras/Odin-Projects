@@ -5,11 +5,13 @@
 }
 
 body {
+    color: aliceblue;
   box-sizing: border-box;
-  background-color: rgb(69, 70, 69);
+  background-color: rgb(72, 65, 72);
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
   border: 2px solid red;
   height: 100vh;
 }
@@ -23,6 +25,29 @@ body {
 
 .center-item {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
 }
+
+.search-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    border: 1px solid red;
+}
+
+#search-input{
+    width: 25em;
+    height: 2em;
+    border-radius: 5px;
+}
+ #search-img{
+    background-color: rgb(120, 99, 120);
+    > &:hover{
+        scale: 1.1;
+        border-radius: 2px;
+    }
+ }
+

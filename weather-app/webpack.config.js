@@ -22,6 +22,7 @@ module.exports = {
     open: true,
     hot: true,
     compress: true,
+    watchFiles: ["src/template.html"],
     historyApiFallback: true,
   },
   module: {
@@ -43,7 +44,7 @@ module.exports = {
       {
         test: /\.(png|svg|jpeg|jpg|gif)$/i,
         type: 'asset/resource'
-      }
+      },
     ],
   },
   plugins: [
