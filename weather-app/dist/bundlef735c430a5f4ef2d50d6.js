@@ -19,21 +19,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var API_KEY = "e539254f1359ed3a0388a18c24f858bb";
 var getWeatherData = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(city) {
-    var geoPosition, responseGeo, contentGeo, _contentGeo$, lat, lon, url, response, content;
+    var geoPositionUrl, responseGeo, contentGeo, _contentGeo$, lat, lon, weatherUrl, response, content;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          if (!(city == '')) {
+          if (!(!city || city.trim() === '')) {
             _context.next = 2;
             break;
           }
-          return _context.abrupt("return");
+          throw new Error('Please enter a valid city name');
         case 2:
-          geoPosition = "http://api.openweathermap.org/geo/1.0/direct?q=".concat(city, "&limit=1&appid=").concat(API_KEY);
+          geoPositionUrl = "http://api.openweathermap.org/geo/1.0/direct?q=".concat(city, "&limit=1&appid=").concat(API_KEY);
           _context.prev = 3;
           _context.next = 6;
-          return fetch(geoPosition, {
-            mode: "cors"
+          return fetch(geoPositionUrl, {
+            mode: 'cors'
           });
         case 6:
           responseGeo = _context.sent;
@@ -42,10 +42,10 @@ var getWeatherData = /*#__PURE__*/function () {
         case 9:
           contentGeo = _context.sent;
           _contentGeo$ = contentGeo[0], lat = _contentGeo$.lat, lon = _contentGeo$.lon;
-          url = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(lat, "&lon=").concat(lon, "&appid=").concat(API_KEY, "&units=metric");
+          weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(lat, "&lon=").concat(lon, "&appid=").concat(API_KEY, "&units=metric");
           _context.next = 14;
-          return fetch(url, {
-            mode: "cors"
+          return fetch(weatherUrl, {
+            mode: 'cors'
           });
         case 14:
           response = _context.sent;
@@ -53,17 +53,17 @@ var getWeatherData = /*#__PURE__*/function () {
           return response.json();
         case 17:
           content = _context.sent;
-          console.log(content);
           return _context.abrupt("return", content);
-        case 22:
-          _context.prev = 22;
+        case 21:
+          _context.prev = 21;
           _context.t0 = _context["catch"](3);
           console.log(_context.t0);
+          throw new Error('An error occurred while fetching weather data. Please try again later.');
         case 25:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[3, 22]]);
+    }, _callee, null, [[3, 21]]);
   }));
   return function getWeatherData(_x) {
     return _ref.apply(this, arguments);
@@ -93,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  color: aliceblue;\n  box-sizing: border-box;\n  background-color: rgb(72, 65, 72);\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n  flex-direction: column;\n  border: 2px solid red;\n  height: 100vh;\n}\n\n.main-container {\n  border: 1px solid black;\n  border-radius: 3px;\n  height: 25%;\n  width: 25%;\n}\n\n.center-item {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n  flex-direction: column;\n}\n\n.search-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 50%;\n  border: 1px solid red;\n}\n\n#search-input {\n  width: 25em;\n  height: 2em;\n  border-radius: 5px;\n}\n\n#search-img {\n  background-color: rgb(120, 99, 120);\n}\n#search-img:hover {\n  scale: 1.1;\n  border-radius: 2px;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;EACA,sBAAA;AACF;;AAEA;EACI,gBAAA;EACF,sBAAA;EACA,iCAAA;EACA,aAAA;EACA,6BAAA;EACA,mBAAA;EACA,sBAAA;EACA,qBAAA;EACA,aAAA;AACF;;AAEA;EACE,uBAAA;EACA,kBAAA;EACA,WAAA;EACA,UAAA;AACF;;AAEA;EACE,aAAA;EACA,6BAAA;EACA,mBAAA;EACA,sBAAA;AACF;;AAEA;EACI,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,UAAA;EACA,qBAAA;AACJ;;AAEA;EACI,WAAA;EACA,WAAA;EACA,kBAAA;AACJ;;AACC;EACG,mCAAA;AAEJ;AADI;EACI,UAAA;EACA,kBAAA;AAGR","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n    color: aliceblue;\n  box-sizing: border-box;\n  background-color: rgb(72, 65, 72);\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n  flex-direction: column;\n  border: 2px solid red;\n  height: 100vh;\n}\n\n.main-container {\n  border: 1px solid black;\n  border-radius: 3px;\n  height: 25%;\n  width: 25%;\n}\n\n.center-item {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n  flex-direction: column;\n}\n\n.search-container{\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    width: 50%;\n    border: 1px solid red;\n}\n\n#search-input{\n    width: 25em;\n    height: 2em;\n    border-radius: 5px;\n}\n #search-img{\n    background-color: rgb(120, 99, 120);\n    > &:hover{\n        scale: 1.1;\n        border-radius: 2px;\n    }\n }\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: #2C3333;\n  color: #CBE4DE;\n  font-family: Arial, sans-serif;\n  text-align: center;\n}\nbody h1 {\n  margin-top: 50px;\n  font-size: 80px;\n  text-shadow: 2px 2px #0E8388;\n  font-weight: bold;\n  font-style: italic;\n  font-family: \"Courier New\", Courier, monospace;\n  color: #CBE4DE;\n  text-transform: uppercase;\n}\nbody .search-container {\n  background-color: #2E4F4F;\n  display: inline-block;\n  padding: 10px;\n  margin-top: 30px;\n  border-radius: 5px;\n}\nbody .search-container label {\n  font-size: 25px;\n  color: #CBE4DE;\n}\nbody .search-container input {\n  background-color: #CBE4DE;\n  border: 2px solid #0E8388;\n  color: #2C3333;\n  padding: 5px;\n  margin-left: 10px;\n  font-size: 20px;\n  width: 250px;\n}\nbody .search-container input:focus {\n  outline: none;\n  box-shadow: 0px 0px 5px #0E8388;\n}\nbody .search-container img {\n  margin-left: 10px;\n  width: 30px;\n  height: 30px;\n  filter: invert(1);\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n}\nbody .search-container img:hover {\n  transform: rotate(18deg);\n  scale: 1.1;\n}\nbody .main-container {\n  background-color: #0E8388;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 500px;\n  margin-top: 30px;\n}\nbody .main-container .data-container {\n  text-align: center;\n}\nbody .main-container .data-container img {\n  width: 100px;\n  height: 100px;\n  margin-bottom: 20px;\n}\nbody .main-container .data-container h3 {\n  font-size: 40px;\n  margin-bottom: 10px;\n  color: #CBE4DE;\n}\nbody .main-container .data-container h4 {\n  font-size: 30px;\n  margin-bottom: 20px;\n  color: #CBE4DE;\n}\nbody .main-container .data-container p {\n  font-size: 25px;\n  margin-bottom: 5px;\n  color: #CBE4DE;\n}\n\n.animate {\n  animation-name: slide-in;\n  animation-duration: 1s;\n  animation-fill-mode: forwards;\n}\n\n@keyframes slide-in {\n  from {\n    transform: translateX(-100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(0);\n    opacity: 1;\n  }\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AASA;EACE,yBAVsB;EAWtB,cAT6B;EAU7B,8BAAA;EACA,kBAAA;AARF;AAUE;EACE,gBAAA;EACA,eAAA;EACA,4BAAA;EACA,iBAAA;EACA,kBAAA;EACA,8CAAA;EACA,cAAA;EACA,yBAAA;AARJ;AAWE;EACE,yBA1BgC;EA2BhC,qBAAA;EACA,aAAA;EACA,gBAAA;EACA,kBAAA;AATJ;AAWI;EACE,eAAA;EACA,cAjCyB;AAwB/B;AAYI;EACE,yBApCoC;EAqCpC,yBAAA;EACA,cAAA;EACA,YAAA;EACA,iBAAA;EACA,eAAA;EACA,YAAA;AAVN;AAYM;EACE,aAAA;EACA,+BAAA;AAVR;AAcI;EACE,iBAAA;EACA,WAAA;EACA,YAAA;EACA,iBAAA;EACA,eAAA;EACA,gCAAA;AAZN;AAcM;EACE,wBAAA;EACA,UAAA;AAZR;AAiBE;EACE,yBA/D8B;EAgE9B,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,gBAAA;AAfJ;AAiBI;EACE,kBAAA;AAfN;AAiBM;EACE,YAAA;EACA,aAAA;EACA,mBAAA;AAfR;AAkBM;EACE,eAAA;EACA,mBAAA;EACA,cAjFoB;AAiE5B;AAmBM;EACE,eAAA;EACA,mBAAA;EACA,cAvFoB;AAsE5B;AAoBM;EACE,eAAA;EACA,kBAAA;EACA,cA7FoB;AA2E5B;;AAwBA;EACE,wBAAA;EACA,sBAAA;EACA,6BAAA;AArBF;;AAwBA;EACE;IACE,4BAAA;IACA,UAAA;EArBF;EAuBA;IACE,wBAAA;IACA,UAAA;EArBF;AACF","sourcesContent":["$body-background-color: #2C3333;\n$search-container-background-color: #2E4F4F;\n$search-container-label-color: #CBE4DE;\n$search-container-input-background-color: #CBE4DE;\n$search-container-input-border-color: #0E8388;\n$search-container-img-color: #CBE4DE;\n$data-container-background-color: #0E8388;\n$data-container-text-color: #CBE4DE;\n\nbody {\n  background-color: $body-background-color;\n  color: $search-container-label-color;\n  font-family: Arial, sans-serif;\n  text-align: center;\n\n  h1 {\n    margin-top: 50px;\n    font-size: 80px;\n    text-shadow: 2px 2px #0E8388;\n    font-weight: bold;\n    font-style: italic;\n    font-family: 'Courier New', Courier, monospace;\n    color: #CBE4DE;\n    text-transform: uppercase;\n  }\n\n  .search-container {\n    background-color: $search-container-background-color;\n    display: inline-block;\n    padding: 10px;\n    margin-top: 30px;\n    border-radius: 5px;\n\n    label {\n      font-size: 25px;\n      color: $search-container-label-color;\n    }\n\n    input {\n      background-color: $search-container-input-background-color;\n      border: 2px solid $search-container-input-border-color;\n      color: #2C3333;\n      padding: 5px;\n      margin-left: 10px;\n      font-size: 20px;\n      width: 250px;\n\n      &:focus {\n        outline: none;\n        box-shadow: 0px 0px 5px $search-container-input-border-color;\n      }\n    }\n\n    img {\n      margin-left: 10px;\n      width: 30px;\n      height: 30px;\n      filter: invert(1);\n      cursor: pointer;\n      transition: all 0.2s ease-in-out;\n\n      &:hover {\n        transform: rotate(18deg);\n        scale: 1.1;\n      }\n    }\n  }\n\n  .main-container {\n    background-color: $data-container-background-color;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 500px;\n    margin-top: 30px;\n\n    .data-container {\n      text-align: center;\n\n      img {\n        width: 100px;\n        height: 100px;\n        margin-bottom: 20px;\n      }\n\n      h3 {\n        font-size: 40px;\n        margin-bottom: 10px;\n        color: $data-container-text-color;\n      }\n\n      h4 {\n        font-size: 30px;\n        margin-bottom: 20px;\n        color: $data-container-text-color;\n      }\n\n      p {\n        font-size: 25px;\n        margin-bottom: 5px;\n        color: $data-container-text-color;\n      }\n    }\n  }\n}\n\n.animate{\n  animation-name: slide-in;\n  animation-duration: 1s;\n  animation-fill-mode: forwards;\n}\n\n@keyframes slide-in {\n  from {\n    transform: translateX(-100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(0);\n    opacity: 1;\n  }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -723,7 +723,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var waetherImg = document.querySelector('#weather-img');
+var weatherImg = document.querySelector('#weather-img');
 var cityName = document.querySelector('#city-name');
 var conutryName = document.querySelector('#country-name');
 var weatherDescription = document.querySelector('#weather-description');
@@ -732,28 +732,93 @@ var windSpeed = document.querySelector('#wind-speed');
 var searchImg = document.querySelector('#search-img');
 var input = document.querySelector('#search-input');
 searchImg.src = _assets_search_svg__WEBPACK_IMPORTED_MODULE_0__;
-searchImg.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-  var data;
-  return _regeneratorRuntime().wrap(function _callee$(_context) {
-    while (1) switch (_context.prev = _context.next) {
+function animation() {
+  weatherImg.classList.add('animate');
+  setTimeout(function () {
+    weatherImg.classList.remove('animate');
+  }, 1000);
+}
+var displayData = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var data, wetaherIcon;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0,_weatherData__WEBPACK_IMPORTED_MODULE_1__["default"])(input.value);
+        case 2:
+          data = _context.sent;
+          wetaherIcon = data.weather[0].icon;
+          console.log(data);
+          weatherImg.src = "https://openweathermap.org/img/wn/".concat(wetaherIcon, "@2x.png");
+          cityName.textContent = data.name;
+          conutryName.textContent = data.sys.country;
+          weatherDescription.textContent = data.weather[0].main;
+          temperature.textContent = Math.round(data.main.temp).toString() + "\xB0C";
+          windSpeed.textContent = 'Wind speed: ' + Math.round(data.wind.speed).toString() + ' km/h';
+          animation();
+        case 12:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return function displayData() {
+    return _ref.apply(this, arguments);
+  };
+}();
+function eventHandler() {
+  return _eventHandler.apply(this, arguments);
+}
+function _eventHandler() {
+  _eventHandler = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.next = 2;
+          return displayData();
+        case 2:
+          input.value = '';
+        case 3:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+  return _eventHandler.apply(this, arguments);
+}
+searchImg.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+    while (1) switch (_context2.prev = _context2.next) {
       case 0:
-        _context.next = 2;
-        return (0,_weatherData__WEBPACK_IMPORTED_MODULE_1__["default"])(input.value);
+        _context2.next = 2;
+        return eventHandler();
       case 2:
-        data = _context.sent;
-        cityName.textContent = data.name;
-        conutryName.textContent = data.sys.country;
-        weatherDescription.textContent = data.weather[0].main;
-        temperature.textContent = Math.round(data.main.temp).toString() + "\xB0C";
-        windSpeed.textContent = Math.round(data.wind.speed).toString() + ' km/h';
-      case 8:
       case "end":
-        return _context.stop();
+        return _context2.stop();
     }
-  }, _callee);
+  }, _callee2);
 })));
+input.addEventListener('keyup', /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          if (e.key === 'Enter') {
+            eventHandler();
+          }
+        case 1:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+  return function (_x) {
+    return _ref3.apply(this, arguments);
+  };
+}());
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundlea582097d5b633cc429f5.js.map
+//# sourceMappingURL=bundlef735c430a5f4ef2d50d6.js.map
