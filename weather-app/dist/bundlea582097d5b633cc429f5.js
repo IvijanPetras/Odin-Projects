@@ -42,7 +42,7 @@ var getWeatherData = /*#__PURE__*/function () {
         case 9:
           contentGeo = _context.sent;
           _contentGeo$ = contentGeo[0], lat = _contentGeo$.lat, lon = _contentGeo$.lon;
-          url = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(lat, "8&lon=").concat(lon, "&appid=").concat(API_KEY, "&units=metric");
+          url = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(lat, "&lon=").concat(lon, "&appid=").concat(API_KEY, "&units=metric");
           _context.next = 14;
           return fetch(url, {
             mode: "cors"
@@ -730,19 +730,23 @@ var weatherDescription = document.querySelector('#weather-description');
 var temperature = document.querySelector('#temperature');
 var windSpeed = document.querySelector('#wind-speed');
 var searchImg = document.querySelector('#search-img');
-var input = document.querySelector('#search-input').value;
+var input = document.querySelector('#search-input');
 searchImg.src = _assets_search_svg__WEBPACK_IMPORTED_MODULE_0__;
 searchImg.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
   var data;
   return _regeneratorRuntime().wrap(function _callee$(_context) {
     while (1) switch (_context.prev = _context.next) {
       case 0:
-        console.log(input);
-        _context.next = 3;
-        return (0,_weatherData__WEBPACK_IMPORTED_MODULE_1__["default"])(input);
-      case 3:
+        _context.next = 2;
+        return (0,_weatherData__WEBPACK_IMPORTED_MODULE_1__["default"])(input.value);
+      case 2:
         data = _context.sent;
-      case 4:
+        cityName.textContent = data.name;
+        conutryName.textContent = data.sys.country;
+        weatherDescription.textContent = data.weather[0].main;
+        temperature.textContent = Math.round(data.main.temp).toString() + "\xB0C";
+        windSpeed.textContent = Math.round(data.wind.speed).toString() + ' km/h';
+      case 8:
       case "end":
         return _context.stop();
     }
@@ -752,4 +756,4 @@ searchImg.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle44da416c7c5d1fc19003.js.map
+//# sourceMappingURL=bundlea582097d5b633cc429f5.js.map
