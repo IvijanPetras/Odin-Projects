@@ -87,9 +87,13 @@ window.onload = () => {
 
         while(left.length && right.length){
             if(left[0] < right[0]) {
+                console.log('left shift: ' + left.shift())
                 sortedArr.push(left.shift())
+                console.log('leftArr: ' + left)
             } else  {
+                console.log('right shift: ' +right.shift())
                 sortedArr.push(right.shift())
+                console.log('right: ' + right)
             }
         }
 
@@ -99,6 +103,8 @@ window.onload = () => {
     function mergeSort(arr) {
         if (arr.length <= 1) return arr
         let mid = Math.floor(arr.length / 2)
+        console.log('arrSplit: ' + mid)
+        console.log(arr)
         let left = mergeSort(arr.slice(0, mid))
         let right = mergeSort(arr.slice(mid))
         return merge(left, right)
