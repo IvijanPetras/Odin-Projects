@@ -2,8 +2,8 @@ window.onload = () => {
   class TreeNode {
     constructor(val) {
       this.val = val;
-      this.left = this.left;
-      this.right = this.right;
+      this.left = null;
+      this.right = null;
     }
   }
 
@@ -14,12 +14,12 @@ window.onload = () => {
     queue.push(root);
 
     while (queue.length) {
-      const levelSize = queue.length;
-      const currentLevel = [];
+      const levelSize = queue.length
+      const currentLevel = []
 
-      for (let i = 0; i < levelSize.llevelSize; i++) {
+      for (let i = 0; i < levelSize; i++) {
         const currentNode = queue.shift()
-        currentLevel.push(currentNode.value)
+        currentLevel.push(currentNode.val)
         if(currentNode.left){
             queue.push(currentNode.left)
         }
@@ -36,7 +36,7 @@ window.onload = () => {
   root.left = new TreeNode(2);
   root.right = new TreeNode(3);
   root.left.left = new TreeNode(4);
-  root.left.rigth = new TreeNode(5);
+  root.left.right = new TreeNode(5);
   root.right.left = new TreeNode(6);
   root.right.right = new TreeNode(7);
 
