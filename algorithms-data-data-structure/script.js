@@ -210,6 +210,10 @@ class LinkedList {
     this.size--
   }
   // Clear list
+  clearList(){
+    this.head = null
+    this.size = 0
+  }
 
   // Print list data
   printListData() {
@@ -217,7 +221,7 @@ class LinkedList {
 
     while (current) {
       console.log(current.data);
-      current = current.next;
+      current = current.nextNode;
     }
   }
 }
