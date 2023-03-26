@@ -154,17 +154,13 @@ class LinkedList {
     let previous = null;
     let count = 0;
 
-    if (index === 0) {
-      this.head = current.nextNode;
-    } else {
+    if (index === 0) this.head = current.nextNode;
       while (count < index) {
         previous = current;
         current = current.nextNode;
         count++;
       }
       previous.nextNode = current.nextNode;
-    }
-
     this.size--;
     return current.value;
   }
