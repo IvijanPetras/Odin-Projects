@@ -1,16 +1,30 @@
 class Node{
-    constructor(data){
+    constructor(data = null, left = null, right = null){
         this.data = data
-        this.left = null
-        this.right = null
+        this.left = left
+        this.right = right
     }
 }
 
 class Tree{
     constructor(arr){
-        this.arr = arr
-        this.root = buildTree()
+        let soretdArr = mergeSort(arr)
+        this.root = this.buildTree(soretdArr)
     }
+
+    buildTree(arr){
+    
+        if(arr.length === 0) return null
+
+        let mid = Math.floor(arr.length / 2)
+        const node = new Node(arr[mid])
+    
+        node.left = this.buildTree(arr.slice(0, mid))
+        node.right = this.buildTree(arr.slice(mid + 1))
+        
+        return node
+    }
+    
 }
 
 function merge(left,right){
@@ -34,9 +48,6 @@ function mergeSort(arr) {
     return merge(left, right) 
   }
 
-function buildTree(arr){
-    
+  let newTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 
-}
-console.log(mergeSort([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])) 
-//console.log(buildTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]))
+console.log(newTree)
