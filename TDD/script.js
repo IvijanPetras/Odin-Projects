@@ -59,4 +59,19 @@ export const caesar = function (string, shift) {
     .join("");
 };
 
-console.log(caesar("defend the east wall of the castle", 1));
+
+export function analyzeArray(arr){
+    const avrg = arr.reduce((acc,current) => acc + current, 0) / arr.length
+    const min = Math.min.apply(Math,arr)
+    const max = Math.max.apply(Math,arr)
+    const length = arr.length
+    
+    return {
+        average: avrg,
+        min: min,
+        max: max,
+        length: length
+    }
+}
+
+analyzeArray([1, 2, 3, 4]);
