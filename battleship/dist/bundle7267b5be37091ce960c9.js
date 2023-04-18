@@ -466,35 +466,6 @@ function styleTagTransform(css, styleElement) {
 }
 module.exports = styleTagTransform;
 
-/***/ }),
-
-/***/ "./src/factories/ship.js":
-/*!*******************************!*\
-  !*** ./src/factories/ship.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CreateShip": () => (/* binding */ CreateShip)
-/* harmony export */ });
-function CreateShip(length) {
-  const hitCount = 0;
-  const isSunk = false;
-  return {
-    hitCount,
-    isSunk,
-    length,
-    hit(){
-      hitCount++
-    },
-    getLength(){
-        return length
-    }
-  };
-}
-
-
 /***/ })
 
 /******/ 	});
@@ -578,16 +549,10 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
-/* harmony import */ var _factories_ship__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./factories/ship */ "./src/factories/ship.js");
 
 
-
-const ship = (0,_factories_ship__WEBPACK_IMPORTED_MODULE_1__.CreateShip)(4)
-const ship2 = (0,_factories_ship__WEBPACK_IMPORTED_MODULE_1__.CreateShip)(2)
-
-console.log(ship.hit(), ship2.hit())    
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundlec2293ad75b324dc0a2ca.js.map
+//# sourceMappingURL=bundle7267b5be37091ce960c9.js.map
