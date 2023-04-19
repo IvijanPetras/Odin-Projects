@@ -1,15 +1,18 @@
  function CreateShip(length) {
-  const hitCount = 0;
-  const isSunk = false;
+  let hitCount = 0;
+  let sunk = false;
   return {
     hitCount,
-    isSunk,
     length,
     hit(){
-      hitCount++
+     this.hitCount++
     },
     getLength(){
-        return length
+        return this.length
+    },
+    isSunk(){
+        if(this.hitCount === length) return true
+        return false
     }
   };
 }
