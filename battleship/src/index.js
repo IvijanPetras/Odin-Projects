@@ -1,6 +1,6 @@
 import './styles/main.scss'
 const ship = require('./factories/ship')
+const board = require('./factories/gameboard')
 
-const bla = ship.CreateShip(3)
-bla.hit()
-console.log(bla.getLength())
+
+console.log(board.Gameboard(10))
