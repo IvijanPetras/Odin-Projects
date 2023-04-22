@@ -1,29 +1,71 @@
-const CreateShip = require('./ship')
-const playerBoard = document.querySelector('.player-board')
-const aiBoard = document.querySelector('.ai-board')
+const Gameboard = () => {
+  const board = Array(10)
+    .fill(null)
+    .map(() => Array(10).fill(null));
+  const ships = [];
 
-const ships = CreateShip.CreateShip()
+  const placeShip = (ship, row, col, orientation) => {
+    const { length } = ship;
+    const occupiedCoords = [];
 
-function cellListener(e){
-    
-}
+    for (let i = 0; i < length; i++) {
+      let newRow = row;
+      let newCol = col;
 
-function Gameboard(size){
-    const board = []
-    const numOfCells = size * size
-    for (let i = 0; i < numOfCells; i++) {
-        const cell = document.createElement('div')
-        cell.className = 'cell'
-        cell.innerText = i
-        cell.setAttribute('id', `${i}`)
-        cell.addEventListener('click', (e) => {
-            cellListener(e)
-        })
-        playerBoard.append(cell)
-        board.push(i)
+      if (orientation === "horizontal") {
+        newCol += i;
+      } else {
+        newRow += i;
+      }
+
+      if (newRow >= board.length || newCol >= board[0].length) {
+        // Ship goes beyond the board, so cannot be placed
+        return false;
+      }
+
+      if (board[newRow][newCol] !== null) {
+        // Another ship already occupies this square, so cannot be placed
+        return false;
+      }
+
+      occupiedCoords.push([newRow, newCol]);
     }
-    return board
-}
 
+    // All squares are unoccupied, so place the ship
+    ship.place(occupiedCoords, row, col, board);
+    ships.push(ship);
 
-module.exports = {Gameboard}
+    // Update the board with the ship object
+    for (let i = 0; i < occupiedCoords.length; i++) {
+      const [row, col] = occupiedCoords[i];
+      board[row][col] = ship;
+    }
+
+    return true;
+  };
+
+  const receiveAttack = (row, col) => {
+    if (board[row][col] === null) {
+      // Missed shot
+      board[row][col] = "miss";
+      return false;
+    } else {
+      // Hit a ship
+      const ship = board[row][col];
+      ship.hit();
+
+      if (ship.isSunk()) {
+        // Ship is now sunk
+        ships.splice(ships.indexOf(ship), 1);
+      }
+
+      return true;
+    }
+  };
+
+  const areAllShipsSunk = () => ships.every((ship) => ship.isSunk());
+
+  return { board, placeShip, receiveAttack, areAllShipsSunk };
+};
+
+module.exports = { Gameboard };

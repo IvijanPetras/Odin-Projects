@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: darkslategray;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACI,+BAAA;AACJ","sourcesContent":["body{\n    background-color: darkslategray;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: darkslategray;\n}\n\n.cell {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.cell:hover {\n  background-color: rgb(56, 96, 96);\n}\n\n.player-board {\n  width: 500px;\n  height: 500px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACI,+BAAA;AACJ;;AAEA;EACI,YAAA;EACA,WAAA;EACA,YAAA;EACA,uBAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;AAAJ;AACI;EACI,iCAAA;AACR;;AAGE;EACE,YAAA;EACE,aAAA;EACA,aAAA;EACA,sCAAA;EACA,mCAAA;AAAN","sourcesContent":["body{\n    background-color: darkslategray;\n}\n\n.cell {\n    color: azure;\n    width: 50px;\n    height: 50px;\n    border: 1px solid black;\n    //box-sizing: border-box;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    > &:hover{\n        background-color: rgb(56, 96, 96);\n    }\n  }\n\n  .player-board {\n    width: 500px;\n      height: 500px;\n      display: grid;\n      grid-template-columns: repeat(10, 1fr);\n      grid-template-rows: repeat(10, 1fr);\n  }\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -483,24 +483,78 @@ module.exports = styleTagTransform;
   \************************************/
 /***/ ((module) => {
 
-const playerBoard = document.querySelector('.player-board')
-const aiBoard = document.querySelector('.ai-board')
+const Gameboard = () => {
+  const board = Array(10)
+    .fill(null)
+    .map(() => Array(10).fill(null));
+  const ships = [];
 
-function Gameboard(size){
-    const board = []
-    const numOfCells = size * size
-    for (let i = 0; i < numOfCells; i++) {
-        const cell = document.createElement('div')
-        cell.id = i
-        const cellId = i
-        playerBoard.append(cell)
-        board.push(cellId)
+  const placeShip = (ship, row, col, orientation) => {
+    const { length } = ship;
+    const occupiedCoords = [];
+
+    for (let i = 0; i < length; i++) {
+      let newRow = row;
+      let newCol = col;
+
+      if (orientation === "horizontal") {
+        newCol += i;
+      } else {
+        newRow += i;
+      }
+
+      if (newRow >= board.length || newCol >= board[0].length) {
+        // Ship goes beyond the board, so cannot be placed
+        return false;
+      }
+
+      if (board[newRow][newCol] !== null) {
+        // Another ship already occupies this square, so cannot be placed
+        return false;
+      }
+
+      occupiedCoords.push([newRow, newCol]);
     }
-    return board
-}
 
+    // All squares are unoccupied, so place the ship
+    ship.place(occupiedCoords);
+    ships.push(ship);
 
-module.exports = {Gameboard}
+    // Update the board with the ship object
+    for (let i = 0; i < occupiedCoords.length; i++) {
+      const [row, col] = occupiedCoords[i];
+      board[row][col] = ship;
+    }
+
+    return true;
+  };
+
+  const receiveAttack = (row, col) => {
+    if (board[row][col] === null) {
+      // Missed shot
+      board[row][col] = "miss";
+      return false;
+    } else {
+      // Hit a ship
+      const ship = board[row][col];
+      ship.hit();
+
+      if (ship.isSunk()) {
+        // Ship is now sunk
+        ships.splice(ships.indexOf(ship), 1);
+      }
+
+      return true;
+    }
+  };
+
+  const areAllShipsSunk = () => ships.every((ship) => ship.isSunk());
+
+  return { board, placeShip, receiveAttack, areAllShipsSunk };
+};
+
+module.exports = { Gameboard };
+
 
 /***/ }),
 
@@ -510,26 +564,38 @@ module.exports = {Gameboard}
   \*******************************/
 /***/ ((module) => {
 
- function CreateShip(length) {
-  let hitCount = 0;
-  let sunk = false;
-  return {
-    hitCount,
-    length,
-    hit(){
-     this.hitCount++
-    },
-    getLength(){
-        return this.length
-    },
-    isSunk(){
-        if(this.hitCount === length) return true
-        return false
+function Ship(length) {
+  const hits = Array(length).fill(false);
+
+  function hit(position) {
+    if (position >= length || position < 0) {
+      throw new Error('Invalid position');
     }
+    hits[position] = true;
+  }
+
+  function isSunk() {
+    return hits.every((hit) => hit);
+  }
+
+  function place(occupiedCoords, startRow, startCol) {
+    occupiedCoords.forEach(coord => {
+      const [row, col] = coord;
+      board[row][col] = this;
+      hits[row - startRow][col - startCol] = false;
+    });
+  };
+
+  return {
+    length,
+    hits,
+    hit,
+    isSunk,
+    place,
   };
 }
 
-module.exports = {CreateShip}
+module.exports = {Ship}
 
 /***/ })
 
@@ -619,10 +685,11 @@ __webpack_require__.r(__webpack_exports__);
 const ship = __webpack_require__(/*! ./factories/ship */ "./src/factories/ship.js")
 const board = __webpack_require__(/*! ./factories/gameboard */ "./src/factories/gameboard.js")
 
-
-console.log(board.Gameboard(10))
+const sheep = ship.Ship(3)
+const gameboard = board.Gameboard(sheep,2,2,true)
+console.log(gameboard)
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundledc7f5a1a36529f7ed642.js.map
+//# sourceMappingURL=bundle6192dd2726a6199429c0.js.map

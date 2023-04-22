@@ -1,10 +1,10 @@
 const ships = require('../ship')
 
 describe("CreateShip", () => {
-    const battleship = ships.CreateShip(3)
+    const battleship = ships.Ship(3)
     battleship.hit()
     it("should create a new ship with the given length number", () => {
-      expect(battleship.getLength()).toBe(3)
+      expect(battleship.length).toBe(3)
     }),
     it("should add 1 hit point on hit() function", () => {
       expect(battleship.hitCount).toBe(1)
