@@ -31,13 +31,14 @@ const Gameboard = () => {
       occupiedCoords.push([newRow, newCol]);
     }
 
-    // All squares are unoccupied, so place the ship
-    ship.place(occupiedCoords, row, col, board);
+    // All squares are unoccupied, place the ship
+    ship.place(row, col, board);
     ships.push(ship);
 
     // Update the board with the ship object
     for (let i = 0; i < occupiedCoords.length; i++) {
-      const [row, col] = occupiedCoords[i];
+        const [row, col] = occupiedCoords[i];
+        console.log(occupiedCoords[i])
       board[row][col] = ship;
     }
 
@@ -53,7 +54,6 @@ const Gameboard = () => {
       // Hit a ship
       const ship = board[row][col];
       ship.hit();
-
       if (ship.isSunk()) {
         // Ship is now sunk
         ships.splice(ships.indexOf(ship), 1);

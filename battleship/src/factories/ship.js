@@ -1,23 +1,18 @@
 function Ship(length) {
-  const hits = Array(length).fill(false);
+  let hits = 0;
 
-  function hit(position) {
-    if (position >= length || position < 0) {
-      throw new Error('Invalid position');
-    }
-    hits[position] = true;
+  function hit() {
+    this.hits++
+    if(this.hits >= this.length) return isSunk()
   }
 
   function isSunk() {
-    return hits.every((hit) => hit);
+    return true;
   }
 
-  function place(occupiedCoords, startRow, startCol, board) {
-    occupiedCoords.forEach(coord => {
-      const [row, col] = coord;
-      board[row][col] = this;
-      hits[row - startRow][col - startCol] = false;
-    });
+  function place(row,col, board) {
+    console.log(board[row][col])
+    board[row][col] = 'ship'
   };
 
   return {
