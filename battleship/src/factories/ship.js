@@ -1,26 +1,19 @@
 function Ship(length) {
-  let hits = 0;
+  let hits = 0
+  let sunk = false
 
   function hit() {
     this.hits++
-    if(this.hits >= this.length) return isSunk()
+    if(this.hits >= this.length) return this.sunk = true
   }
 
-  function isSunk() {
-    return true;
-  }
-
-  function place(row,col, board) {
-    console.log(board[row][col])
-    board[row][col] = 'ship'
-  };
+ 
 
   return {
     length,
     hits,
     hit,
-    isSunk,
-    place,
+    sunk
   };
 }
 
