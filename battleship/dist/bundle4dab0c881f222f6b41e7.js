@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: darkslategray;\n}\n\n.cell {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.cell:hover {\n  background-color: rgb(56, 96, 96);\n}\n\n.player-board {\n  width: 500px;\n  height: 500px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACI,+BAAA;AACJ;;AAEA;EACI,YAAA;EACA,WAAA;EACA,YAAA;EACA,uBAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;AAAJ;AACI;EACI,iCAAA;AACR;;AAGE;EACE,YAAA;EACE,aAAA;EACA,aAAA;EACA,sCAAA;EACA,mCAAA;AAAN","sourcesContent":["body{\n    background-color: darkslategray;\n}\n\n.cell {\n    color: azure;\n    width: 50px;\n    height: 50px;\n    border: 1px solid black;\n    //box-sizing: border-box;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    > &:hover{\n        background-color: rgb(56, 96, 96);\n    }\n  }\n\n  .player-board {\n    width: 500px;\n      height: 500px;\n      display: grid;\n      grid-template-columns: repeat(10, 1fr);\n      grid-template-rows: repeat(10, 1fr);\n  }\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: darkslategray;\n}\n\n.row > * {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.row > *:hover {\n  background-color: rgb(56, 96, 96);\n}\n\n.board {\n  display: grid;\n  grid-template-rows: repeat(10, 50px);\n}\n\n.board > div {\n  display: grid;\n  grid-template-columns: repeat(10, 50px);\n}\n.board > div > div {\n  border: 1px solid wheat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.ship {\n  color: azure;\n  font-size: large;\n  border: 1px solid wheat;\n  box-sizing: border-box;\n}\n\n.center {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.hidden {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,+BAAA;AACF;;AAEA;EACE,YAAA;EACA,WAAA;EACA,YAAA;EACA,uBAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;AAAF;AACE;EACE,iCAAA;AACJ;;AAGA;EACE,aAAA;EACA,oCAAA;AAAF;;AAGA;EACE,aAAA;EACA,uCAAA;AAAF;AACE;EACE,uBAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AACJ;;AAGA;EACE,YAAA;EACA,gBAAA;EACA,uBAAA;EACA,sBAAA;AAAF;;AAGA;EACE,aAAA;EACA,6BAAA;EACA,mBAAA;AAAF;;AAOA;EACE,aAAA;AAJF","sourcesContent":["body {\n  background-color: darkslategray;\n}\n\n.row > * {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  //box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  > &:hover {\n    background-color: rgb(56, 96, 96);\n  }\n}\n\n.board {\n  display: grid;\n  grid-template-rows: repeat(10, 50px);\n}\n\n.board > div {\n  display: grid;\n  grid-template-columns: repeat(10, 50px);\n  > div {\n    border: 1px solid wheat;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n}\n\n.ship {\n  color: azure;\n  font-size: large;\n  border: 1px solid wheat;\n  box-sizing: border-box;\n}\n\n.center {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.battleships{\n \n}\n\n.hidden{\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -516,13 +516,11 @@ const Gameboard = () => {
       occupiedCoords.push([newRow, newCol]);
     }
 
-    // All squares are unoccupied, so place the ship
-    ship.place(occupiedCoords);
     ships.push(ship);
 
     // Update the board with the ship object
     for (let i = 0; i < occupiedCoords.length; i++) {
-      const [row, col] = occupiedCoords[i];
+        const [row, col] = occupiedCoords[i];
       board[row][col] = ship;
     }
 
@@ -538,8 +536,7 @@ const Gameboard = () => {
       // Hit a ship
       const ship = board[row][col];
       ship.hit();
-
-      if (ship.isSunk()) {
+      if (ship.sunk) {
         // Ship is now sunk
         ships.splice(ships.indexOf(ship), 1);
       }
@@ -550,10 +547,47 @@ const Gameboard = () => {
 
   const areAllShipsSunk = () => ships.every((ship) => ship.isSunk());
 
-  return { board, placeShip, receiveAttack, areAllShipsSunk };
+  return { board, placeShip, receiveAttack, areAllShipsSunk, ships };
 };
 
 module.exports = { Gameboard };
+
+
+/***/ }),
+
+/***/ "./src/factories/player.js":
+/*!*********************************!*\
+  !*** ./src/factories/player.js ***!
+  \*********************************/
+/***/ ((module) => {
+
+function Players() {
+  let playerTurn = false;
+
+  const randomNum = () => {
+    return Math.floor(Math.random() * 11);
+  };
+
+  const human =  {
+     attack(gameboard, row, col) {
+         console.log(gameboard[row][col])
+      if (gameboard[row][col] === null) return gameboard[row][col] === "miss"
+      if (gameboard[row][col] === "miss") return alert("illegal move")
+    }
+}
+  
+
+  function ai() {
+    //check if random move is illegal
+  }
+
+  return {
+    human,
+    playerTurn,
+  };
+}
+
+module.exports = { Players };
 
 
 /***/ }),
@@ -565,37 +599,86 @@ module.exports = { Gameboard };
 /***/ ((module) => {
 
 function Ship(length) {
-  const hits = Array(length).fill(false);
+  let hits = 0
+  let sunk = false
 
-  function hit(position) {
-    if (position >= length || position < 0) {
-      throw new Error('Invalid position');
-    }
-    hits[position] = true;
+  function hit() {
+    this.hits++
+    if(this.hits >= this.length) return this.sunk = true
   }
 
-  function isSunk() {
-    return hits.every((hit) => hit);
-  }
-
-  function place(occupiedCoords, startRow, startCol) {
-    occupiedCoords.forEach(coord => {
-      const [row, col] = coord;
-      board[row][col] = this;
-      hits[row - startRow][col - startCol] = false;
-    });
-  };
+ 
 
   return {
     length,
     hits,
     hit,
-    isSunk,
-    place,
+    sunk
   };
 }
 
 module.exports = {Ship}
+
+/***/ }),
+
+/***/ "./src/helpers/elements.js":
+/*!*********************************!*\
+  !*** ./src/helpers/elements.js ***!
+  \*********************************/
+/***/ ((module) => {
+
+const playerBoard = document.querySelector(".player-board");
+const aiBoard = document.querySelector(".ai-board");
+const battleships = document.querySelectorAll(".ship");
+
+let beingDragged
+
+function dragStart(e) {
+    beingDragged = e.target
+}
+function dragDrop(e){
+    console.log(e.target)
+    e.target.append(beingDragged)
+}
+function dragOver(e){
+    e.preventDefault()
+}
+
+battleships.forEach(ship => {
+    ship.addEventListener('dragstart', dragStart)
+
+});
+
+function clickedPositionListener(e) {
+  const row = e.target.parentNode.dataset.rowNumber;
+  const col = e.target.dataset.colNumber;
+  console.log(row,col)
+  return {
+    row,
+    col
+  }
+}
+
+function createUIBoard(board,player) {
+  board.forEach((el) => {
+    const row = document.createElement("div")
+    row.className = "row"
+    row.setAttribute("data-row-number", board.indexOf(el))
+    for (let i = 0; i < el.length; i++) {
+      const rowCell = document.createElement("div")
+      rowCell.innerText = i // remove this later
+      rowCell.setAttribute("data-col-number", i)
+      rowCell.addEventListener("click", clickedPositionListener)
+      rowCell.addEventListener("dragover", dragOver)
+      rowCell.addEventListener("drop", dragDrop)
+      row.append(rowCell)
+    }
+    player.append(row)
+  });
+}
+
+module.exports = { createUIBoard };
+
 
 /***/ })
 
@@ -682,14 +765,35 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
 
+const playerBoard = document.querySelector('.player-board')
+const aiBoard = document.querySelector('.ai-board')
 const ship = __webpack_require__(/*! ./factories/ship */ "./src/factories/ship.js")
 const board = __webpack_require__(/*! ./factories/gameboard */ "./src/factories/gameboard.js")
+const players = __webpack_require__(/*! ./factories/player */ "./src/factories/player.js")
+const helpers = __webpack_require__(/*! ./helpers/elements */ "./src/helpers/elements.js")
 
-const sheep = ship.Ship(3)
-const gameboard = board.Gameboard(sheep,2,2,true)
-console.log(gameboard)
+
+const myShip = ship.Ship(3)
+const myShip2 = ship.Ship(4)
+const myGameboard = board.Gameboard()
+const playa = players.Players()
+
+helpers.createUIBoard(myGameboard.board,playerBoard)
+helpers.createUIBoard(myGameboard.board,aiBoard)
+myGameboard.placeShip(myShip, 2, 2, true)
+myGameboard.placeShip(myShip2, 5, 3, "horizontal")
+myGameboard.receiveAttack(1,2)
+myGameboard.receiveAttack(2,2)
+myGameboard.receiveAttack(3,2)
+//myGameboard.receiveAttack(4,2)
+console.log(myGameboard.board)
+console.log(playa.human.attack(myGameboard.board,5,3))
+
+
+
+
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle6192dd2726a6199429c0.js.map
+//# sourceMappingURL=bundle4dab0c881f222f6b41e7.js.map

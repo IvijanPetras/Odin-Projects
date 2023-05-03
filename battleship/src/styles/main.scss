@@ -2,7 +2,7 @@ body {
   background-color: darkslategray;
 }
 
-.cell {
+.row > * {
   color: azure;
   width: 50px;
   height: 50px;
@@ -16,19 +16,19 @@ body {
   }
 }
 
-.player-board {
+.board {
   display: grid;
   grid-template-rows: repeat(10, 50px);
 }
 
-.player-board > div {
+.board > div {
   display: grid;
   grid-template-columns: repeat(10, 50px);
   > div {
     border: 1px solid wheat;
-display: flex;
-justify-content: center;
-align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -37,4 +37,18 @@ align-items: center;
   font-size: large;
   border: 1px solid wheat;
   box-sizing: border-box;
+}
+
+.center {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.battleships{
+ 
+}
+
+.hidden{
+  display: none;
 }

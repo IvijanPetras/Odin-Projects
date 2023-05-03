@@ -6,13 +6,14 @@ const board = require('./factories/gameboard')
 const players = require('./factories/player')
 const helpers = require('./helpers/elements')
 
+
 const myShip = ship.Ship(3)
 const myShip2 = ship.Ship(4)
 const myGameboard = board.Gameboard()
 const playa = players.Players()
 
-helpers.createUIBoard(myGameboard.board)
-
+helpers.createUIBoard(myGameboard.board,playerBoard)
+helpers.createUIBoard(myGameboard.board,aiBoard)
 myGameboard.placeShip(myShip, 2, 2, true)
 myGameboard.placeShip(myShip2, 5, 3, "horizontal")
 myGameboard.receiveAttack(1,2)

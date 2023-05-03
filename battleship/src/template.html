@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
 </head>
+
 <body>
     <h1>Battleship</h1>
 
-    <div class="player-board"></div>
-    <div class="ai-board"></div>
-    <div class="battleships">
+    <div class="baords-container center">
+        <div class="player-board board">PlayerBoard</div>
+        <div class="ai-board board hidden">AI Board</div>
+    </div>
+    <div class="battleships center">
         <div class="ship" draggable="true">Carrier</div>
         <div class="ship" draggable="true">Destroyer</div>
         <div class="ship" draggable="true">Submarine</div>
     </div>
     <button class="start">Start</button>
 </body>
+
 </html>
