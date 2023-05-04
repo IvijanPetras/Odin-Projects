@@ -1,3 +1,6 @@
+const board = require('./gameboard')
+console.log(board.Gameboard())
+
 function Players() {
   let playerTurn = false;
 
@@ -7,9 +10,9 @@ function Players() {
 
   const human = {
     attack(gameboard, row, col) {
-      console.log(gameboard[row][col]);
-      if (gameboard[row][col] === null) return gameboard[row][col] === "miss";
-      if (gameboard[row][col] === "miss") return alert("illegal move");
+      if (gameboard[row][col] === null) return gameboard[row][col] = "miss"
+      if (gameboard[row][col] === "miss") return alert("illegal move")
+
     },
   };
 
