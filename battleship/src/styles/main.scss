@@ -49,10 +49,24 @@ body {
   align-items: center;
 }
 
-.player-board{
+.no-pointer-events{
   pointer-events: none;
 }
 
 .hidden{
   display: none;
+}
+
+.ship-hit{
+  background-color: red;
+  content: '!';
+}
+
+.cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px; 
+    color: #FFF;
+    font-family:Arial, Helvetica, sans-serif
 }

@@ -1,3 +1,5 @@
+const Ship = require('./ship')
+
 const Gameboard = () => {
   const board = Array(10)
     .fill(null)
@@ -50,6 +52,7 @@ const Gameboard = () => {
     } else {
       // Hit a ship
       const ship = board[row][col];
+      console.log(ship)
       ship.hit();
       if (ship.sunk) {
         // Ship is now sunk
