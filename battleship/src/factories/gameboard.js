@@ -1,5 +1,3 @@
-const Ship = require('./ship')
-
 const Gameboard = () => {
   const board = Array(10)
     .fill(null)
@@ -48,6 +46,7 @@ const Gameboard = () => {
     if (board[row][col] === null) {
       // Missed shot
       board[row][col] = "miss";
+      console.log(board)
       return false;
     } else {
       // Hit a ship
@@ -56,7 +55,8 @@ const Gameboard = () => {
       ship.hit();
       if (ship.sunk) {
         // Ship is now sunk
-        ships.splice(ships.indexOf(ship), 1);
+        ships.splice(ships.indexOf(ship), 1)
+        console.log(ships)
       }
 
       return true;

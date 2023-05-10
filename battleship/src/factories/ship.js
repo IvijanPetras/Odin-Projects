@@ -1,20 +1,23 @@
 function Ship(length) {
-  let hits = 0
-  let sunk = false
+  let hits = 0;
+  let sunk = false;
 
   function hit() {
-    this.hits++
-    if(this.hits >= this.length) return this.sunk = true
+    this.hits++;
+    if (this.hits >= this.length) sunk = true;
   }
 
- 
+  function isSunk() {
+    if (sunk) return true;
+    return false;
+  }
 
   return {
     length,
     hits,
     hit,
-    sunk
+    isSunk,
   };
 }
 
-module.exports = {Ship}
+module.exports = { Ship };
