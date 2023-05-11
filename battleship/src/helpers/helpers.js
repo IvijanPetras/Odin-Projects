@@ -13,4 +13,19 @@ function createUIBoard(board, player) {
   })
 }
 
+function updateGameboard(board){
+  const cellArr = []
+  const rows = [...board.children]
+  rows.forEach((a) => {
+    const cells = a.children
+    cellArr.push(...cells)
+  })
+  cellArr.forEach(cell => {
+    if(typeof cell.value === 'object'){
+      cell.innerHtml = ''
+      cell.st
+    }
+  })
+}
+
 module.exports = { createUIBoard }
