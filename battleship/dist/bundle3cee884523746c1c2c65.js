@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: darkslategray;\n}\n\n.row > * {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.row > *:hover {\n  background-color: rgb(56, 96, 96);\n}\n\n.board {\n  display: grid;\n  grid-template-rows: repeat(10, 50px);\n}\n\n.board > div {\n  display: grid;\n  grid-template-columns: repeat(10, 50px);\n}\n.board > div > div {\n  border: 1px solid wheat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.ship {\n  color: azure;\n  font-size: large;\n  border: 1px solid wheat;\n  box-sizing: border-box;\n}\n\n.center {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.hidden {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,+BAAA;AACF;;AAEA;EACE,YAAA;EACA,WAAA;EACA,YAAA;EACA,uBAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;AAAF;AACE;EACE,iCAAA;AACJ;;AAGA;EACE,aAAA;EACA,oCAAA;AAAF;;AAGA;EACE,aAAA;EACA,uCAAA;AAAF;AACE;EACE,uBAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AACJ;;AAGA;EACE,YAAA;EACA,gBAAA;EACA,uBAAA;EACA,sBAAA;AAAF;;AAGA;EACE,aAAA;EACA,6BAAA;EACA,mBAAA;AAAF;;AAOA;EACE,aAAA;AAJF","sourcesContent":["body {\n  background-color: darkslategray;\n}\n\n.row > * {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  //box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  > &:hover {\n    background-color: rgb(56, 96, 96);\n  }\n}\n\n.board {\n  display: grid;\n  grid-template-rows: repeat(10, 50px);\n}\n\n.board > div {\n  display: grid;\n  grid-template-columns: repeat(10, 50px);\n  > div {\n    border: 1px solid wheat;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n}\n\n.ship {\n  color: azure;\n  font-size: large;\n  border: 1px solid wheat;\n  box-sizing: border-box;\n}\n\n.center {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.battleships{\n \n}\n\n.hidden{\n  display: none;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: darkslategray;\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n\n.row > * {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.row > *:hover {\n  cursor: pointer;\n  background-color: rgb(56, 96, 96);\n}\n\n.board {\n  display: grid;\n  grid-template-rows: repeat(10, 50px);\n}\n\n.board > div {\n  display: grid;\n  grid-template-columns: repeat(10, 50px);\n}\n.board > div > div {\n  border: 1px solid wheat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.ship {\n  color: azure;\n  font-size: large;\n  border: 1px solid wheat;\n  box-sizing: border-box;\n}\n\n.center {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.no-pointer-events {\n  pointer-events: none;\n}\n\n.hidden {\n  display: none;\n}\n\n.ship-hit {\n  background-color: red;\n  content: \"!\";\n}\n\n.cell {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: 60px;\n  color: #FFF;\n  font-family: Arial, Helvetica, sans-serif;\n}\n\n.direction {\n  color: #FFF;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,+BAAA;EACA,UAAA;EACA,SAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,WAAA;EACA,YAAA;EACA,uBAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;AAAF;AACE;EACE,eAAA;EACA,iCAAA;AACJ;;AAGA;EACE,aAAA;EACA,oCAAA;AAAF;;AAGA;EACE,aAAA;EACA,uCAAA;AAAF;AACE;EAEE,uBAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AAAJ;;AAIA;EACE,YAAA;EACA,gBAAA;EACA,uBAAA;EACA,sBAAA;AADF;;AAIA;EACE,aAAA;EACA,6BAAA;EACA,mBAAA;AADF;;AAIA;EACE,oBAAA;AADF;;AAIA;EACE,aAAA;AADF;;AAIA;EACE,qBAAA;EACA,YAAA;AADF;;AAIA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,eAAA;EACA,WAAA;EACA,yCAAA;AADJ;;AAIA;EACE,WAAA;AADF","sourcesContent":["body {\n  background-color: darkslategray;\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n\n.row > * {\n  color: azure;\n  width: 50px;\n  height: 50px;\n  border: 1px solid black;\n  //box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  > &:hover {\n    cursor: pointer;\n    background-color: rgb(56, 96, 96);\n  }\n}\n\n.board {\n  display: grid;\n  grid-template-rows: repeat(10, 50px);\n}\n\n.board > div {\n  display: grid;\n  grid-template-columns: repeat(10, 50px);\n  > div {\n\n    border: 1px solid wheat;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n}\n\n.ship {\n  color: azure;\n  font-size: large;\n  border: 1px solid wheat;\n  box-sizing: border-box;\n}\n\n.center {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.no-pointer-events{\n  pointer-events: none;\n}\n\n.hidden{\n  display: none;\n}\n\n.ship-hit{\n  background-color: red;\n  content: '!';\n}\n\n.cell{\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 60px; \n    color: #FFF;\n    font-family:Arial, Helvetica, sans-serif\n}\n\n.direction{\n  color: #FFF;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -529,16 +529,20 @@ const Gameboard = () => {
 
   const receiveAttack = (row, col) => {
     if (board[row][col] === null) {
+      console.log(board[row][col])
       // Missed shot
       board[row][col] = "miss";
+      console.log(board)
       return false;
     } else {
       // Hit a ship
       const ship = board[row][col];
+      console.log(ship)
       ship.hit();
       if (ship.sunk) {
         // Ship is now sunk
-        ships.splice(ships.indexOf(ship), 1);
+        ships.splice(ships.indexOf(ship), 1)
+        console.log(ships)
       }
 
       return true;
@@ -559,7 +563,10 @@ module.exports = { Gameboard };
 /*!*********************************!*\
   !*** ./src/factories/player.js ***!
   \*********************************/
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const board = __webpack_require__(/*! ./gameboard */ "./src/factories/gameboard.js")
+console.log(board.Gameboard())
 
 function Players() {
   let playerTurn = false;
@@ -568,17 +575,17 @@ function Players() {
     return Math.floor(Math.random() * 11);
   };
 
-  const human =  {
-     attack(gameboard, row, col) {
-         console.log(gameboard[row][col])
-      if (gameboard[row][col] === null) return gameboard[row][col] === "miss"
+  const human = {
+    attack(gameboard, row, col) {
+      if (gameboard[row][col] === null) return gameboard[row][col] = "miss"
       if (gameboard[row][col] === "miss") return alert("illegal move")
-    }
-}
-  
+
+    },
+  };
 
   function ai() {
     //check if random move is illegal
+    //make random attack
   }
 
   return {
@@ -599,85 +606,54 @@ module.exports = { Players };
 /***/ ((module) => {
 
 function Ship(length) {
-  let hits = 0
-  let sunk = false
+  let hits = 0;
+  let sunk = false;
 
   function hit() {
-    this.hits++
-    if(this.hits >= this.length) return this.sunk = true
+    this.hits++;
+    if (this.hits >= this.length) sunk = true;
   }
 
- 
+  function isSunk() {
+    if (sunk) return true;
+    return false;
+  }
 
   return {
     length,
     hits,
     hit,
-    sunk
+    isSunk,
   };
 }
 
-module.exports = {Ship}
+module.exports = { Ship };
+
 
 /***/ }),
 
-/***/ "./src/helpers/elements.js":
-/*!*********************************!*\
-  !*** ./src/helpers/elements.js ***!
-  \*********************************/
+/***/ "./src/helpers/helpers.js":
+/*!********************************!*\
+  !*** ./src/helpers/helpers.js ***!
+  \********************************/
 /***/ ((module) => {
 
-const playerBoard = document.querySelector(".player-board");
-const aiBoard = document.querySelector(".ai-board");
-const battleships = document.querySelectorAll(".ship");
-
-let beingDragged
-
-function dragStart(e) {
-    beingDragged = e.target
-}
-function dragDrop(e){
-    console.log(e.target)
-    e.target.append(beingDragged)
-}
-function dragOver(e){
-    e.preventDefault()
-}
-
-battleships.forEach(ship => {
-    ship.addEventListener('dragstart', dragStart)
-
-});
-
-function clickedPositionListener(e) {
-  const row = e.target.parentNode.dataset.rowNumber;
-  const col = e.target.dataset.colNumber;
-  console.log(row,col)
-  return {
-    row,
-    col
-  }
-}
-
-function createUIBoard(board,player) {
+function createUIBoard(board, player) {
   board.forEach((el) => {
     const row = document.createElement("div")
     row.className = "row"
     row.setAttribute("data-row-number", board.indexOf(el))
     for (let i = 0; i < el.length; i++) {
       const rowCell = document.createElement("div")
-      rowCell.innerText = i // remove this later
+      rowCell.className = "cell"
       rowCell.setAttribute("data-col-number", i)
-      rowCell.addEventListener("click", clickedPositionListener)
-      rowCell.addEventListener("dragover", dragOver)
-      rowCell.addEventListener("drop", dragDrop)
       row.append(rowCell)
     }
     player.append(row)
-  });
+  })
 }
 
-module.exports = { createUIBoard };
+module.exports = { createUIBoard }
 
 
 /***/ })
@@ -765,35 +741,97 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
 
-const playerBoard = document.querySelector('.player-board')
-const aiBoard = document.querySelector('.ai-board')
+const playerBoard = document.querySelector(".player-board")
+const aiBoard = document.querySelector(".ai-board")
 const ship = __webpack_require__(/*! ./factories/ship */ "./src/factories/ship.js")
 const board = __webpack_require__(/*! ./factories/gameboard */ "./src/factories/gameboard.js")
 const players = __webpack_require__(/*! ./factories/player */ "./src/factories/player.js")
-const helpers = __webpack_require__(/*! ./helpers/elements */ "./src/helpers/elements.js")
+const helpers = __webpack_require__(/*! ./helpers/helpers */ "./src/helpers/helpers.js")
+const battleships = document.querySelectorAll(".ship")
 
-
-const myShip = ship.Ship(3)
-const myShip2 = ship.Ship(4)
 const myGameboard = board.Gameboard()
-const playa = players.Players()
+const aiGameboard = board.Gameboard()
 
-helpers.createUIBoard(myGameboard.board,playerBoard)
-helpers.createUIBoard(myGameboard.board,aiBoard)
-myGameboard.placeShip(myShip, 2, 2, true)
-myGameboard.placeShip(myShip2, 5, 3, "horizontal")
-myGameboard.receiveAttack(1,2)
-myGameboard.receiveAttack(2,2)
-myGameboard.receiveAttack(3,2)
-//myGameboard.receiveAttack(4,2)
-console.log(myGameboard.board)
-console.log(playa.human.attack(myGameboard.board,5,3))
+helpers.createUIBoard(myGameboard.board, playerBoard) // create player gameboard
+helpers.createUIBoard(aiGameboard.board, aiBoard) // create ai gameboard
 
+const cellArrAi = []
+const aiRows = [...aiBoard.children]
+aiRows.forEach((a) => {
+  const cells = a.children
+  cellArrAi.push(...cells)
+})
 
+cellArrAi.forEach((cell) => {
+  cell.addEventListener("click", (e) => {
+    cellListener(e, cell)
+  })
+  cell.addEventListener("dragover", dragOver)
+  cell.addEventListener("drop", (e) => {
+    dragDrop(e, aiGameboard)
+  })
+})
 
+function cellListener(e, cell) {
+  const row = getCoords(e).row
+  const col = getCoords(e).col
+  if (aiGameboard.receiveAttack(row, col)) {
+    cell.classList.add("ship-hit", "no-pointer-events")
+  } else {
+    cell.innerText = "X"
+    cell.classList.add("no-pointer-events")
+  }
+  if (aiGameboard.areAllShipsSunk()) alert("gameover")
+}
+
+battleships.forEach((ship) => {
+  ship.addEventListener("dragstart", dragStart)
+})
+let beingDragged
+
+function dragStart(e) {
+  beingDragged = e.target
+}
+function dragDrop(e, board) {
+  const row = getCoords(e).row
+  const col = getCoords(e).col
+  board.placeShip(shipType(beingDragged.innerText), row, col, true)
+  e.target.append(beingDragged)
+}
+function dragOver(e) {
+  e.preventDefault()
+}
+
+function shipType(type) {
+  switch (type) {
+    case "Submarine":
+      return ship.Ship(3)
+    case "Carrier":
+      return ship.Ship(5)
+    case "Destroyer":
+        return ship.Ship(3)
+    case "Battleship":
+        return ship.Ship(4)
+    case "Patrol Boat":
+        return ship.Ship(2)
+    default:
+        console.log("error")
+      break
+  }
+}
+
+function getCoords(e) {
+  const row = +e.target.parentNode.dataset.rowNumber
+  const col = +e.target.dataset.colNumber
+  console.log(row, col)
+  return {
+    row,
+    col,
+  }
+}
 
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle4dab0c881f222f6b41e7.js.map
+//# sourceMappingURL=bundle3cee884523746c1c2c65.js.map

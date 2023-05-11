@@ -44,6 +44,7 @@ const Gameboard = () => {
 
   const receiveAttack = (row, col) => {
     if (board[row][col] === null) {
+      console.log(board[row][col])
       // Missed shot
       board[row][col] = "miss";
       console.log(board)

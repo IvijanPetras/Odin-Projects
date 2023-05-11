@@ -8,19 +8,32 @@
     <title>
         battleship
     </title>
-<script defer src="bundle4dab0c881f222f6b41e7.js"></script></head>
+<script defer src="bundle3cee884523746c1c2c65.js"></script></head>
 
 <body>
     <h1>Battleship</h1>
 
     <div class="baords-container center">
         <div class="player-board board">PlayerBoard</div>
-        <div class="ai-board board hidden">AI Board</div>
+        <div class="ai-board board ">AI Board</div>
     </div>
     <div class="battleships center">
         <div class="ship" draggable="true">Carrier</div>
         <div class="ship" draggable="true">Destroyer</div>
         <div class="ship" draggable="true">Submarine</div>
+        <div class="ship" draggable="true">Battleship</div>
+        <div class="ship" draggable="true">Patrol Boat</div>
+        <fieldset class="direction">
+            <legend>Direction</legend>
+            <div>
+                <input type="radio" name="direction" id="vertical" checked>
+                <label for="horizontal">Vertical</label>
+            </div>
+            <div>
+                <input type="radio" name="direction" id="horizontal">
+                <label for="horizontal">Horizontal</label>
+            </div>
+        </fieldset>
     </div>
     <button class="start">Start</button>
 </body>

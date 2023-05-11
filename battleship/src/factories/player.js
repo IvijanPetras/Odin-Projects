@@ -1,5 +1,4 @@
 const board = require('./gameboard')
-console.log(board.Gameboard())
 
 function Players() {
   let playerTurn = false;
