@@ -1,31 +1,35 @@
 function createUIBoard(board, player) {
+  let n = 0
   board.forEach((el) => {
     const row = document.createElement("div")
-    row.className = "row"
+    row.className = `row row${n}`
     row.setAttribute("data-row-number", board.indexOf(el))
     for (let i = 0; i < el.length; i++) {
       const rowCell = document.createElement("div")
-      rowCell.className = "cell"
+      rowCell.className = `cell cell${i}`
       rowCell.setAttribute("data-col-number", i)
       row.append(rowCell)
     }
     player.append(row)
+    n++
   })
 }
 
-function updateGameboard(board){
+function updateGameboard(board, occupiedCoords){
   const cellArr = []
   const rows = [...board.children]
-  rows.forEach((a) => {
-    const cells = a.children
-    cellArr.push(...cells)
-  })
+  console.log(rows, occupiedCoords)
+  // rows.forEach((a) => {
+  //   cellArr.push(...a)
+  // })
+  console.log(cellArr)
   cellArr.forEach(cell => {
-    if(typeof cell.value === 'object'){
-      cell.innerHtml = ''
-      cell.st
-    }
+    console.log(cell)
+    // if(typeof cell === 'object'){
+    //   cell.innerHtml = ''
+    //   cell.style.property.backgroundStyle = 'red'
+    // }
   })
 }
 
-module.exports = { createUIBoard }
+module.exports = { createUIBoard, updateGameboard }

@@ -54,26 +54,28 @@ function dragDrop(e, board) {
   const row = getCoords(e).row
   const col = getCoords(e).col
   if (board.placeShip(shipType(beingDragged.innerText), row, col, true)) {
-    return e.target.append(beingDragged)
+    e.target.append(beingDragged)
+    console.log(helpers.updateGameboard(aiBoard, aiGameboard.occupiedCoords))
+  } else {
+    alert("Invalid Move")
   }
-  return alert ('Invalid Move')
 }
 function dragOver(e) {
   e.preventDefault()
 }
 
-function shipType(type) {
+function shipType(type, row, col) {
   switch (type) {
     case "Submarine":
-      return ship.Ship(3)
+      return ship.Ship(3, row, col)
     case "Carrier":
-      return ship.Ship(5)
+      return ship.Ship(5, row, col)
     case "Destroyer":
-      return ship.Ship(3)
+      return ship.Ship(3, row, col)
     case "Battleship":
-      return ship.Ship(4)
+      return ship.Ship(4, row, col)
     case "Patrol Boat":
-      return ship.Ship(2)
+      return ship.Ship(2, row, col)
     default:
       console.log("error")
       break
@@ -89,5 +91,3 @@ function getCoords(e) {
     col,
   }
 }
-
-
