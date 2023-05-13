@@ -29,7 +29,6 @@ const Gameboard = () => {
       }
 
       occupiedCoords.push([newRow, newCol])
-      console.log(occupiedCoords)
     }
 
     ships.push(ship)
@@ -39,13 +38,12 @@ const Gameboard = () => {
       const [row, col] = occupiedCoords[i]
       board[row][col] = ship
     }
-
+    console.log(ships)
     return true
   }
 
   const receiveAttack = (row, col) => {
     if (board[row][col] === null) {
-      console.log(board[row][col])
       // Missed shot
       board[row][col] = "miss"
       console.log(board)
@@ -53,9 +51,9 @@ const Gameboard = () => {
     } else {
       // Hit a ship
       const ship = board[row][col]
-      console.log(ship)
       ship.hit()
-      if (ship.sunk) {
+      console.log(ship, ship.isSunk())
+      if (ship.isSunk()) {
         // Ship is now sunk
         ships.splice(ships.indexOf(ship), 1)
         console.log(ships)

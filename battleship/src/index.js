@@ -10,8 +10,8 @@ const battleships = document.querySelectorAll(".ship")
 const myGameboard = board.Gameboard()
 const aiGameboard = board.Gameboard()
 
-helpers.createUIBoard(myGameboard.board, playerBoard) // create player gameboard
-helpers.createUIBoard(aiGameboard.board, aiBoard) // create ai gameboard
+helpers.createUIBoard(myGameboard.board, playerBoard, 'player') // create player gameboard
+helpers.createUIBoard(aiGameboard.board, aiBoard, 'ai') // create ai gameboard
 
 const cellArrAi = []
 const aiRows = [...aiBoard.children]
@@ -53,9 +53,10 @@ function dragStart(e) {
 function dragDrop(e, board) {
   const row = getCoords(e).row
   const col = getCoords(e).col
-  if (board.placeShip(shipType(beingDragged.innerText), row, col, true)) {
+  const direction = document.querySelector('input[name="direction"]:checked').value;
+  if (board.placeShip(shipType(beingDragged.innerText), row, col, direction)) {
     e.target.append(beingDragged)
-    console.log(helpers.updateGameboard(aiBoard, aiGameboard.occupiedCoords))
+    helpers.updateGameboard(aiBoard, aiGameboard.occupiedCoords)
   } else {
     alert("Invalid Move")
   }
@@ -85,7 +86,6 @@ function shipType(type, row, col) {
 function getCoords(e) {
   const row = +e.target.parentNode.dataset.rowNumber
   const col = +e.target.dataset.colNumber
-  console.log(row, col)
   return {
     row,
     col,

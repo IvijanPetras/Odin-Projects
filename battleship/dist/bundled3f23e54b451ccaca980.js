@@ -486,75 +486,75 @@ module.exports = styleTagTransform;
 const Gameboard = () => {
   const board = Array(10)
     .fill(null)
-    .map(() => Array(10).fill(null));
-  const ships = [];
+    .map(() => Array(10).fill(null))
+  const ships = []
+  const occupiedCoords = []
 
   const placeShip = (ship, row, col, orientation) => {
-    const { length } = ship;
-    const occupiedCoords = [];
+    const { length } = ship
 
     for (let i = 0; i < length; i++) {
-      let newRow = row;
-      let newCol = col;
+      let newRow = row
+      let newCol = col
 
       if (orientation === "horizontal") {
-        newCol += i;
+        newCol += i
       } else {
-        newRow += i;
+        newRow += i
       }
 
       if (newRow >= board.length || newCol >= board[0].length) {
         // Ship goes beyond the board, so cannot be placed
-        return false;
+        return false
       }
 
       if (board[newRow][newCol] !== null) {
         // Another ship already occupies this square, so cannot be placed
-        return false;
+        return false
       }
 
-      occupiedCoords.push([newRow, newCol]);
+      occupiedCoords.push([newRow, newCol])
     }
 
-    ships.push(ship);
+    ships.push(ship)
 
     // Update the board with the ship object
     for (let i = 0; i < occupiedCoords.length; i++) {
-        const [row, col] = occupiedCoords[i];
-      board[row][col] = ship;
+      const [row, col] = occupiedCoords[i]
+      board[row][col] = ship
     }
 
-    return true;
-  };
+    return true
+  }
 
   const receiveAttack = (row, col) => {
     if (board[row][col] === null) {
       console.log(board[row][col])
       // Missed shot
-      board[row][col] = "miss";
+      board[row][col] = "miss"
       console.log(board)
-      return false;
+      return false
     } else {
       // Hit a ship
-      const ship = board[row][col];
+      const ship = board[row][col]
       console.log(ship)
-      ship.hit();
+      ship.hit()
       if (ship.sunk) {
         // Ship is now sunk
         ships.splice(ships.indexOf(ship), 1)
         console.log(ships)
       }
 
-      return true;
+      return true
     }
-  };
+  }
 
-  const areAllShipsSunk = () => ships.every((ship) => ship.isSunk());
+  const areAllShipsSunk = () => ships.every((ship) => ship.isSunk())
 
-  return { board, placeShip, receiveAttack, areAllShipsSunk, ships };
-};
+  return { board, placeShip, receiveAttack, areAllShipsSunk, ships, occupiedCoords }
+}
 
-module.exports = { Gameboard };
+module.exports = { Gameboard }
 
 
 /***/ }),
@@ -566,7 +566,6 @@ module.exports = { Gameboard };
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const board = __webpack_require__(/*! ./gameboard */ "./src/factories/gameboard.js")
-console.log(board.Gameboard())
 
 function Players() {
   let playerTurn = false;
@@ -606,17 +605,16 @@ module.exports = { Players };
 /***/ ((module) => {
 
 function Ship(length) {
-  let hits = 0;
-  let sunk = false;
-
+  let hits = 0
+  let sunk = false
   function hit() {
-    this.hits++;
-    if (this.hits >= this.length) sunk = true;
+    this.hits++
+    if (this.hits >= this.length) sunk = true
   }
 
   function isSunk() {
-    if (sunk) return true;
-    return false;
+    if (sunk) return true
+    return false
   }
 
   return {
@@ -624,10 +622,10 @@ function Ship(length) {
     hits,
     hit,
     isSunk,
-  };
+  }
 }
 
-module.exports = { Ship };
+module.exports = { Ship }
 
 
 /***/ }),
@@ -638,22 +636,43 @@ module.exports = { Ship };
   \********************************/
 /***/ ((module) => {
 
-function createUIBoard(board, player) {
+function createUIBoard(board, player, name) {
+  let n = 0
   board.forEach((el) => {
     const row = document.createElement("div")
-    row.className = "row"
+    row.className = `row row${n}-${name}`
     row.setAttribute("data-row-number", board.indexOf(el))
     for (let i = 0; i < el.length; i++) {
       const rowCell = document.createElement("div")
-      rowCell.className = "cell"
+      rowCell.className = `cell cell${i}-${name}`
       rowCell.setAttribute("data-col-number", i)
       row.append(rowCell)
     }
     player.append(row)
+    n++
   })
 }
 
-module.exports = { createUIBoard }
+function updateGameboard(board, occupiedCoords){
+  const cellArr = []
+  const rows = [...board.children]
+  const occupiedRows = []
+  const occupiedCols = []
+  occupiedCoords.forEach(coord => {
+    occupiedRows.push(coord[0])
+    occupiedCols.push(coord[1])
+  })
+  console.log(rows, occupiedRows, occupiedCols)
+  for (let i = 0; i< occupiedRows.length; i++) {
+    const row = document.querySelector(`.row${occupiedRows[i]}-ai`)
+    const cell = row.querySelector(`.cell${occupiedCols[i]}-ai`)
+    cell.style.backgroundColor = 'red'
+
+  } 
+  
+}
+
+module.exports = { createUIBoard, updateGameboard }
 
 
 /***/ })
@@ -752,8 +771,8 @@ const battleships = document.querySelectorAll(".ship")
 const myGameboard = board.Gameboard()
 const aiGameboard = board.Gameboard()
 
-helpers.createUIBoard(myGameboard.board, playerBoard) // create player gameboard
-helpers.createUIBoard(aiGameboard.board, aiBoard) // create ai gameboard
+helpers.createUIBoard(myGameboard.board, playerBoard, 'player') // create player gameboard
+helpers.createUIBoard(aiGameboard.board, aiBoard, 'ai') // create ai gameboard
 
 const cellArrAi = []
 const aiRows = [...aiBoard.children]
@@ -795,27 +814,33 @@ function dragStart(e) {
 function dragDrop(e, board) {
   const row = getCoords(e).row
   const col = getCoords(e).col
-  board.placeShip(shipType(beingDragged.innerText), row, col, true)
-  e.target.append(beingDragged)
+  const direction = document.querySelector('input[name="direction"]:checked').value;
+  console.log(direction)
+  if (board.placeShip(shipType(beingDragged.innerText), row, col, true)) {
+    e.target.append(beingDragged)
+    helpers.updateGameboard(aiBoard, aiGameboard.occupiedCoords)
+  } else {
+    alert("Invalid Move")
+  }
 }
 function dragOver(e) {
   e.preventDefault()
 }
 
-function shipType(type) {
+function shipType(type, row, col) {
   switch (type) {
     case "Submarine":
-      return ship.Ship(3)
+      return ship.Ship(3, row, col)
     case "Carrier":
-      return ship.Ship(5)
+      return ship.Ship(5, row, col)
     case "Destroyer":
-        return ship.Ship(3)
+      return ship.Ship(3, row, col)
     case "Battleship":
-        return ship.Ship(4)
+      return ship.Ship(4, row, col)
     case "Patrol Boat":
-        return ship.Ship(2)
+      return ship.Ship(2, row, col)
     default:
-        console.log("error")
+      console.log("error")
       break
   }
 }
@@ -823,7 +848,6 @@ function shipType(type) {
 function getCoords(e) {
   const row = +e.target.parentNode.dataset.rowNumber
   const col = +e.target.dataset.colNumber
-  console.log(row, col)
   return {
     row,
     col,
@@ -834,4 +858,4 @@ function getCoords(e) {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle3cee884523746c1c2c65.js.map
+//# sourceMappingURL=bundled3f23e54b451ccaca980.js.map
