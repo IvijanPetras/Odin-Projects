@@ -65,18 +65,18 @@ function dragOver(e) {
   e.preventDefault()
 }
 
-function shipType(type, row, col) {
+function shipType(type) {
   switch (type) {
     case "Submarine":
-      return ship.Ship(3, row, col)
+      return ship.Ship(3)
     case "Carrier":
-      return ship.Ship(5, row, col)
+      return ship.Ship(5)
     case "Destroyer":
-      return ship.Ship(3, row, col)
+      return ship.Ship(3)
     case "Battleship":
-      return ship.Ship(4, row, col)
+      return ship.Ship(4)
     case "Patrol Boat":
-      return ship.Ship(2, row, col)
+      return ship.Ship(2)
     default:
       console.log("error")
       break

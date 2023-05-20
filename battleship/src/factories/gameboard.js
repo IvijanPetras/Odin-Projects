@@ -6,8 +6,8 @@ const Gameboard = () => {
   const occupiedCoords = []
 
   const placeShip = (ship, row, col, orientation) => {
+    console.log(ship)
     const { length } = ship
-
     for (let i = 0; i < length; i++) {
       let newRow = row
       let newCol = col
@@ -52,11 +52,10 @@ const Gameboard = () => {
       // Hit a ship
       const ship = board[row][col]
       ship.hit()
-      console.log(ship, ship.isSunk())
+      console.log(ship.isSunk())
       if (ship.isSunk()) {
         // Ship is now sunk
         ships.splice(ships.indexOf(ship), 1)
-        console.log(ships)
       }
 
       return true
